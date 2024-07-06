@@ -28,7 +28,7 @@ services:
       KC_DB: mysql
       KC_DB_USERNAME: root
       KC_DB_PASSWORD: password
-      KC_HTTP_RELATIVE_PATH: /keycloak
+#      KC_HTTP_RELATIVE_PATH: /keycloak
       KC_DB_URL: jdbc:mysql://mysql-kc:3306/keycloak
       KC_FEATURES: token-exchange,admin-fine-grained-authz
       KC_HOSTNAME: localhost

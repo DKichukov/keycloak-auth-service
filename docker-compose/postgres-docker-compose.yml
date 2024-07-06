@@ -20,7 +20,7 @@ services:
     links:
       - postgres
     ports:
-      - "9081:8080"
+      - "9082:8080"
     environment:
       KEYCLOAK_ADMIN : admin
       KEYCLOAK_ADMIN_PASSWORD: admin@1234
@@ -31,6 +31,7 @@ services:
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
       KC_HOSTNAME: localhost
       KC_FEATURES: token-exchange,admin-fine-grained-authz
+#      KC_HTTP_RELATIVE_PATH: /keycloak
     networks:
       - local
 networks:
