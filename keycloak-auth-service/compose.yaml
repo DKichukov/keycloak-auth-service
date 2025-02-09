@@ -1,0 +1,37 @@
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - localK
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.0
+    command: start-dev
+    restart: always
+    links:
+      - postgres
+    ports:
+      - "9082:8080"
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: ${KC_DB}
+      KC_DB_SCHEMA: ${KC_DB_SCHEMA}
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+      KC_DB_URL: ${KC_DB_URL}
+      KC_HOSTNAME: ${KC_HOSTNAME}
+      KC_FEATURES: ${KC_FEATURES}
+    #      KC_HTTP_RELATIVE_PATH: ${KC_HTTP_RELATIVE_PATH}
+    networks:
+      - local
+
+networks:
+  local:
