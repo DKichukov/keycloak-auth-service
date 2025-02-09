@@ -2,6 +2,8 @@ services:
   postgres:
     image: postgres:latest
     restart: always
+    ports:
+      - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     environment:
@@ -31,7 +33,7 @@ services:
       KC_FEATURES: ${KC_FEATURES}
     #      KC_HTTP_RELATIVE_PATH: ${KC_HTTP_RELATIVE_PATH}
     networks:
-      - local
+      - localK
 
 networks:
-  local:
+  localK:

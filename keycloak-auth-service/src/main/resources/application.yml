@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: keycloak-auth-service
+  datasource:
+    url: ${KC_DB_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  sql:
+    init:
+      mode: always
+
+server:
+  port: 8088
+  servlet:
+    context-path: /auth
+app:
+  keycloak:
+    admin:
+      clientId: ${KEYCLOAK_ADMIN_CLIENT}
+      clientSecret: ${KEYCLOAK_ADMIN_SECRET}
+    realm: ${KEYCLOAK_REALM}
+    serverUrl: ${KEYCLOAK_SERVER_URL}
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
