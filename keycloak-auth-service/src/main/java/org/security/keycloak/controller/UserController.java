@@ -5,6 +5,7 @@ import org.security.keycloak.dto.UserRegistrationRequest;
 import org.security.keycloak.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,5 +32,12 @@ public class UserController {
 
         userService.sendVerificationEmail(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id) {
+
+        userService.deleteUser(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -67,6 +67,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void deleteUser(String userId) {
+        UsersResource usersResource = getUsersResource();
+        usersResource.delete(userId);
+    }
 
 
     private static UserRepresentation getUserRepresentation(UserRegistrationRequest userRegistrationRequest) {

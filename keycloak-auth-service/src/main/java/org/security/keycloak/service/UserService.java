@@ -7,5 +7,5 @@ public interface UserService {
     void createUser(UserRegistrationRequest userRegistrationRequest);
 
     void sendVerificationEmail(String userId);
-
+    void deleteUser(String userId);
 }
