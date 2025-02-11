@@ -4,6 +4,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -51,12 +52,17 @@ public class UserServiceImpl implements UserService {
         }
         log.info("New user has bee created");
 
-        List<UserRepresentation> userRepresentations = usersResource.searchByUsername(userRegistrationRequest.username(), true);
-        UserRepresentation userRepresentation1 = userRepresentations.get(0);
+        UserRepresentation userRepresentation1 = getUserRepresentation(userRegistrationRequest.username(), usersResource);
         sendVerificationEmail(userRepresentation1.getId());
 
+    }
 
-
+    private static UserRepresentation getUserRepresentation(String username, UsersResource usersResource) {
+        List<UserRepresentation> userRepresentations = usersResource.searchByUsername(username, true);
+        UserRepresentation userRepresentation1 = userRepresentations.stream()
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User not found after creation"));
+        return userRepresentation1;
     }
 
     @Override
@@ -71,6 +77,15 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String userId) {
         UsersResource usersResource = getUsersResource();
         usersResource.delete(userId);
+    }
+
+    @Override
+    public void forgotPassword(String username) {
+        UsersResource usersResource = getUsersResource();
+        UserRepresentation userRepresentation  = getUserRepresentation(username, usersResource);
+
+        UserResource userResource = getUsersResource().get(userRepresentation.getId());
+        userResource.executeActionsEmail(List.of("UPDATE_PASSWORD"));
     }
 
 
@@ -92,7 +107,6 @@ public class UserServiceImpl implements UserService {
     }
 
     private UsersResource getUsersResource(){
-
         return keycloak.realm(realm).users();
     }
 

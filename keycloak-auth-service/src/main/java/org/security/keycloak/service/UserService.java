@@ -8,4 +8,5 @@ public interface UserService {
 
     void sendVerificationEmail(String userId);
     void deleteUser(String userId);
+    void forgotPassword(String username);
 }
