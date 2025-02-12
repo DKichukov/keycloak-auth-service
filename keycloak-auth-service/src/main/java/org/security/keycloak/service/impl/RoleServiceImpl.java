@@ -30,4 +30,12 @@ public class RoleServiceImpl implements RoleService {
         user.roles().realmLevel().add(Collections.singletonList(representation));
     }
 
+    @Override
+    public void deleteRole(String userId, String roleName) {
+        UserResource user = userService.getUser(userId);
+        RolesResource rolesResource = keycloakService.getRolesResource();
+        RoleRepresentation representation = rolesResource.get(roleName).toRepresentation();
+        user.roles().realmLevel().remove(Collections.singletonList(representation));
+    }
+
 }

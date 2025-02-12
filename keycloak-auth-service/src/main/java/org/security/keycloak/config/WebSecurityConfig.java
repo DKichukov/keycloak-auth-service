@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+//@EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
@@ -31,14 +31,15 @@ public class WebSecurityConfig {
             web.ignoring().requestMatchers(
                     HttpMethod.DELETE,
                     "/public/**",
-                    "/users/{id}"
+                    "/users/{id}",
+                    "/roles/remove/users/{userId}"
             );
             web.ignoring().requestMatchers(
                     HttpMethod.PUT,
                     "/public/**",
                     "/users/{id}/send-verification-email",
-                    "/users/forgot-password"
-
+                    "/users/forgot-password",
+                    "/roles/assign/users/{userId}"
             );
             web.ignoring().requestMatchers(
                             HttpMethod.OPTIONS,
