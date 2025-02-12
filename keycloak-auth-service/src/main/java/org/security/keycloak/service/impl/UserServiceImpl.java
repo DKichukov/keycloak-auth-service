@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.GroupRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.security.keycloak.dto.UserRegistrationRequest;
@@ -109,6 +110,12 @@ public class UserServiceImpl implements UserService {
     public List<RoleRepresentation> getUserRoles(String userId) {
 
         return getUser(userId).roles().realmLevel().listAll();
+    }
+
+    @Override
+    public List<GroupRepresentation> getUserGroups(String userId) {
+
+        return getUser(userId).groups();
     }
 
 }
