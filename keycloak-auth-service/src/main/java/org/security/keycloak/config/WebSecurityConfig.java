@@ -33,14 +33,16 @@ public class WebSecurityConfig {
                     HttpMethod.DELETE,
                     "/public/**",
                     "/users/{id}",
-                    "/roles/remove/users/{userId}"
+                    "/roles/remove/users/{userId}",
+                    "/groups/{groupId}/remove/users/{userId}"
             );
             web.ignoring().requestMatchers(
                     HttpMethod.PUT,
                     "/public/**",
                     "/users/{id}/send-verification-email",
                     "/users/forgot-password",
-                    "/roles/assign/users/{userId}"
+                    "/roles/assign/users/{userId}",
+                    "/groups/{groupId}/assign/users/{userId}"
             );
             web.ignoring().requestMatchers(
                             HttpMethod.OPTIONS,
