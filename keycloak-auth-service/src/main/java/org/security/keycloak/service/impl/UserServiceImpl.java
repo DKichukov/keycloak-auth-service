@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.admin.client.resource.UsersResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.security.keycloak.dto.UserRegistrationRequest;
 import org.security.keycloak.service.BaseKeycloakService;
@@ -102,6 +103,12 @@ public class UserServiceImpl implements UserService {
         UsersResource usersResource = keycloakService.getUsersResource();
 
         return keycloakService.getUsersResource().get(userId);
+    }
+
+    @Override
+    public List<RoleRepresentation> getUserRoles(String userId) {
+
+        return getUser(userId).roles().realmLevel().listAll();
     }
 
 }
