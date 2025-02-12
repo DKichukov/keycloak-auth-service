@@ -48,4 +48,5 @@ public class UserController {
         userService.forgotPassword(username);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
 }

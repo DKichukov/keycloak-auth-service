@@ -1,6 +1,12 @@
 spring:
   application:
     name: keycloak-auth-service
+    security:
+      oauth2:
+        resourceserver:
+          jwt:
+            issuer-uri: ${app.keycloak.serverUrl}/realms/${app.keycloak.realm} // authorization server
+
 server:
   port: 8088
   servlet:
