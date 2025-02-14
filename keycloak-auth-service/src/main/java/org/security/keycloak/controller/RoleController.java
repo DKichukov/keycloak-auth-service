@@ -1,6 +1,5 @@
 package org.security.keycloak.controller;
 
-import jakarta.ws.rs.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.security.keycloak.service.RoleService;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,5 @@ public class RoleController {
         roleService.deleteRole(userId, roleName);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
-
 
 }
